@@ -11,31 +11,32 @@ import java.util.Scanner;
 
 public class S4 {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         String[] keyValues = new String[]{"Фамилия", "Имя", "Отчество", "Возраст", "Пол"};
-        ArrayList<String> users = setUsers(keyValues);
+        ArrayList<String> users = setUsers(keyValues, sc);
         printFormatted(users);
 
         String sortKey = "s";
-        String answer = getInput(String.format("Введите %s для вывода сортированного списка или любую другую клаившу для выхода: ", sortKey));
+        String answer = getInput(sc, String.format("Введите %s для вывода сортированного списка или любую другую клаившу для выхода: ", sortKey));
         if (answer.equalsIgnoreCase(sortKey)) {
             Collections.sort(users);
             printUsers(users, keyValues);
         }
     }
 
-    public static String getInput(String message) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.printf(message);
+    public static String getInput(Scanner scanner, String message) {
+
+        System.out.println(message);
         return scanner.nextLine();
     }
-    public static ArrayList<String> setUsers(String[] keyValues){
+    public static ArrayList<String> setUsers(String[] keyValues, Scanner scanner){
         String stopKey = "q";
         boolean inProgress = true;
         ArrayList<String> users = new ArrayList<>();
         while (inProgress) {
             StringBuilder result = new StringBuilder();
             for (int i = 0; i < keyValues.length; i++) {
-                String input = getInput(String.format("Введите %s или '%s' для завершения: ", keyValues[i], stopKey));
+                String input = getInput(scanner,String.format("Введите %s или '%s' для завершения: ", keyValues[i], stopKey));
                 if (input.equalsIgnoreCase(stopKey)) {
                     inProgress = false;
                     break;
